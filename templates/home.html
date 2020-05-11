@@ -33,6 +33,13 @@ Coded by www.creative-tim.com
   <link href="{% static 'css/paper-dashboard.css' %}" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="{% static 'demo/demo.css'%}" rel="stylesheet" />
+  <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet"/>
+  <style>
+    .box{
+      height: 100px;
+      width : 100px;
+    }
+  </style>
 </head>
 
 <body class="">
@@ -281,17 +288,39 @@ Coded by www.creative-tim.com
           <div class="col-md-12">
             <div class="card ">
               <div class="card-header ">
-                <h5 class="card-title">Users Behavior</h5>
-                <p class="card-category">24 Hours performance</p>
+                <button class="btn btn-primary" data-target="#productModal" data-toggle="modal">Add Item</button>
+                <h5 class="card-title">Item Details</h5>
               </div>
               <div class="card-body ">
-                <canvas id=chartHours width="400" height="100"></canvas>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-history"></i> Updated 3 minutes ago
-                </div>
+                <table id="example" class="display" style="width:100%">
+                  <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Details</th>
+                        <th>Buying price</th>
+                        <th>Selling Price</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for product in allProduct %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        
+                        <td><img class="box" src="{{ product.image.url }}"></td>
+                        <td>{{product.name}}</td>
+                        <td>{{product.details}}</td>
+                        <td>{{product.buying_price}}</td>
+                        <td>{{product.selling_price}}</td>
+                        <td><button class="btn btn-primary">Edit</button></td>
+                        <td><button class="btn btn-darger">Delete</button></td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
               </div>
             </div>
           </div>
@@ -365,6 +394,110 @@ Coded by www.creative-tim.com
       </footer>
     </div>
   </div>
+  <!-- modal field -->
+
+  <div class="modal fade" id="productModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Add Item</h3>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+
+                <div class="modal-body">
+                    <form  method="post" action="{% url 'addProduct' %}" enctype='multipart/form-data'>
+                    {% csrf_token %}
+                      <div class="form-sample">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Name</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="name" required="required"
+                                                class="form-control " placeholder="Name"/>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Details</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="details" required="required"
+                                                class="form-control " placeholder="Details"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Catagory</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="catagory" required="required"
+                                                class="form-control " placeholder="Catagory"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Buying Price</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" step="any" name="buying_price" required="required"
+                                                class="form-control " placeholder="Buying Price"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Selling Price</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" step="any" name="selling_price" required="required"
+                                                class="form-control " placeholder="Selling Price"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Image</label>
+                                    <div class="col-sm-9">
+                                        <input type="file"  name="image" 
+                                                class="form-control" placeholder="Image"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button type="submit" class="btn btn-success col-md-4">Submit</button>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
   <!--   Core JS Files   -->
   <script src="{% static 'js/core/jquery.min.js'%}"></script>
   <script src="{% static 'js/core/popper.min.js'%}"></script>
@@ -379,11 +512,17 @@ Coded by www.creative-tim.com
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="{% static 'js/paper-dashboard.min.js'%}" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="{% static 'demo/demo.js'%}"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   <script>
     $(document).ready(function() {
       // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
       demo.initChartsPages();
     });
+
+    $(document).ready(function() {
+      $('#example').DataTable();
+    } );
   </script>
 </body>
 

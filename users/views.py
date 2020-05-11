@@ -10,6 +10,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib import auth
 from django.contrib import messages
 from django.db.models import Sum
+from productCustomerConfig.models import Product
 
 
 # Create your views here.
@@ -83,8 +84,11 @@ def loginCheck(request):
 
 @login_required(login_url="loginPage")
 def home(request):
-    
-    return render(request, "home.html")
+    allProduct = Product.objects.all()
+    context = {
+        'allProduct': allProduct
+    }   
+    return render(request, "home.html", context)
 
 
 def logout(request):
@@ -92,10 +96,3 @@ def logout(request):
     return redirect("login")
 
 
-@login_required(login_url='loginPage')
-def userList(request):
-    allAuthUser = AuthUser.objects.all()
-    context = {
-        'allAuthUser': allAuthUser
-    }
-    return render(request, 'adminUserList.html', context)
