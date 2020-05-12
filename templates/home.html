@@ -34,6 +34,7 @@ Coded by www.creative-tim.com
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="{% static 'demo/demo.css'%}" rel="stylesheet" />
   <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
   <style>
     .box{
       height: 100px;
@@ -524,6 +525,19 @@ Coded by www.creative-tim.com
       $('#example').DataTable();
     } );
   </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  
+    <script>
+        $( document ).ready(function() {
+            {% if messages %}
+                {% for message in messages %}
+                    toastr.{{ message.tags }}('{{ message }}');
+                {% endfor %}
+            {% endif %}
+
+        });
+    </script> 
 </body>
 
 </html>
