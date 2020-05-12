@@ -18,9 +18,9 @@ from productCustomerConfig.models import Product,Stock
 
 def loginPage(request):
     if request.user.is_authenticated:
-        return render(request, "home.html")
-    else:
         return redirect("login")
+    else:
+        return render(request, "home.html")
 
 
 def login(request):
