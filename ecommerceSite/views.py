@@ -1,5 +1,11 @@
 from django.shortcuts import render
+from productCustomerConfig.models import Product
+
 
 # Create your views here.
 def ecommerce(request):
-    return render(request, 'shoppers/index.html')
+    allProduct = Product.objects.filter(status = True)
+    context = {
+        'allProduct': allProduct
+    }
+    return render(request, 'shoppers/index.html', context)
