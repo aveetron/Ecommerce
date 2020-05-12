@@ -1,5 +1,5 @@
 from django.shortcuts import render,HttpResponseRedirect
-from .forms import ProductForms
+from .forms import ProductForms, StockForms
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
@@ -26,5 +26,31 @@ def addProduct(request):
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     else:
         message = 'Problem Item creation'
+        messages.warning(request, message)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+
+@login_required(login_url='loginPage')
+def addStock(request):
+    if request.method == 'POST':
+        request.POST = request.POST.copy()
+        form = StockForms(request.POST)
+        print(request.POST)
+        if form.is_valid():
+            stockInstance = form.save(commit=False)
+            stockInstance.status = True
+            stockInstance.remain_qty = request.POST['total_qty']
+            stockInstance.created_by = request.user.username
+            stockInstance.save()
+            message = 'Stock created successfully'
+            messages.success(request, message)
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        else:
+            message = 'Problem Stock creation'
+            messages.warning(request, message)
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    else:
+        message = 'Problem Stock creation'
         messages.warning(request, message)
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

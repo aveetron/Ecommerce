@@ -14,37 +14,6 @@ from productCustomerConfig.models import Product
 
 
 # Create your views here.
-def registration(request):
-    if request.method == "POST":
-        firstName = request.POST.get("firstName")
-        lastName = request.POST.get("lastName")
-        email = request.POST.get("email")
-        passwordOne = request.POST.get("passwordOne")
-        passwordTwo = request.POST.get("passwordTwo")
-        lastLogin = datetime.now()
-        dateJoined = datetime.now()
-        if passwordOne == passwordTwo :
-            User.objects.create_user(
-                username=firstName + lastName,
-                first_name=firstName,
-                last_name=lastName,
-                email=email,
-                is_superuser=0,
-                is_staff=0,
-                password=passwordOne,
-                last_login=lastLogin,
-                date_joined=dateJoined,
-                is_active=1,
-            )
-            return redirect("login")
-        else:
-            print('password didnot matched')
-            message = 'User alrady exists'
-            messages.warning(request, message)
-            return render(request, 'registration.html')
-    else:
-        print("else block")
-        return render(request, "registration.html")
 
 
 def loginPage(request):

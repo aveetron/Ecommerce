@@ -28,3 +28,13 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Stock(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    total_qty = models.IntegerField()
+    remain_qty = models.IntegerField()
+    status = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=30)
+    created = models.DateTimeField(auto_now_add=True)
+    
