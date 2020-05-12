@@ -22,7 +22,7 @@ Coded by www.creative-tim.com
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Paper Dashboard 2 by Creative Tim
+    Smart Ecommerce Dashboard 
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -54,7 +54,7 @@ Coded by www.creative-tim.com
           <!-- <p>CT</p> -->
         </a>
         <a href="https://www.creative-tim.com" class="simple-text logo-normal">
-          Creative Tim
+          Smart Ecommerce
           <!-- <div class="logo-image-big">
             <img src="../assets/img/logo-big.png">
           </div> -->
@@ -125,7 +125,7 @@ Coded by www.creative-tim.com
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:;">Paper Dashboard 2</a>
+            <a class="navbar-brand" href="javascript:;">Admin Ecommerce</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -191,8 +191,8 @@ Coded by www.creative-tim.com
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Capacity</p>
-                      <p class="card-title">150GB<p>
+                      <p class="card-category">Total Item</p>
+                      <p class="card-title">{{totalProduct}}<p>
                     </div>
                   </div>
                 </div>
@@ -316,6 +316,47 @@ Coded by www.creative-tim.com
                         <td>{{product.details}}</td>
                         <td>{{product.buying_price}}</td>
                         <td>{{product.selling_price}}</td>
+                        <td><button class="btn btn-primary">Edit</button></td>
+                        <td><button class="btn btn-darger">Delete</button></td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card ">
+              <div class="card-header ">
+                <button class="btn btn-primary" data-target="#stockModal" data-toggle="modal">Add Item</button>
+                <h5 class="card-title">Item Details</h5>
+              </div>
+              <div class="card-body ">
+                <table id="exampleStock" class="display" style="width:100%">
+                  <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Product</th>
+                        <th>Total Qty</th>
+                        <th>Remain Qty</th>
+                        <th>Available</th>
+                        <th>Created by</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for stock in totalStock %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        
+                        <td>{{stock.product.name}}</td>
+                        <td>{{stock.total_qty}}</td>
+                        <td>{{stock.remain_qty}}</td>
+                        <td>{{stock.status}}</td>
+                        <td>{{stock.created_by}}</td>
                         <td><button class="btn btn-primary">Edit</button></td>
                         <td><button class="btn btn-darger">Delete</button></td>
                     </tr>
@@ -496,7 +537,7 @@ Coded by www.creative-tim.com
                                     <div class="col-sm-9">
                                         <select name="product" class="form-control">
                                           {% for product in allProduct %}
-                                            <option val="{{product.id}}">{{product.name}}</option>
+                                            <option value="{{product.id}}">{{product.name}}</option>
                                           {% endfor %}
                                         </select>
                                     </div>
