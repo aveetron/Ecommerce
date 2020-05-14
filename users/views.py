@@ -14,6 +14,42 @@ from productCustomerConfig.models import Product,Stock
 
 
 # Create your views here.
+def registration(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        passwordOne = request.POST.get("passwordOne")
+        passwordTwo = request.POST.get("passwordTwo")
+        lastLogin = datetime.now()
+        dateJoined = datetime.now()
+        if passwordOne == passwordTwo :
+            User.objects.create_user(
+                username=username,
+                email=email,
+                is_superuser=0,
+                is_staff=0,
+                password=passwordOne,
+                last_login=lastLogin,
+                date_joined=dateJoined,
+                is_active=1,
+            )
+            if username and passwordOne:
+                user = authenticate(username=username, password=passwordOne)
+                auth_login(request, user)
+                user.save()
+            return redirect("ecommerce")
+        else:
+            print('password didnot matched')
+            message = 'password didnot matched'
+            messages.warning(request, message)
+            return render(request, 'shoppers/registration.html')
+    else:
+        print("else block")
+        return render(request, "shoppers/registration.html")
+
+
+
+
 
 
 def loginPage(request):
@@ -66,6 +102,31 @@ def home(request):
 
 def logout(request):
     auth.logout(request)
-    return redirect("login")
+    return redirect("ecommerce")
 
 
+def customerLoginPage(request):
+    return render(request, 'shoppers/login.html')
+
+def customerLoginCheck(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        if username and password:
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                auth_login(request, user)
+                user.save()
+                print("logged in successfully")
+                message = "you are successfully logged in"
+                messages.success(request, message)
+                return redirect("ecommerce")
+            else:
+                print("wrong username and password")
+                return redirect("login")
+        else:
+            print("login failed")
+            return redirect("login")
+    else:
+        print("login problem")
+        return redirect("login")

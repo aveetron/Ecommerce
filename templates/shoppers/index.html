@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="{% static 'ecommerceSite/css/aos.css'%}">
 
     <link rel="stylesheet" href="{% static 'ecommerceSite/css/style.css'%}">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
     
   </head>
   <body>
@@ -43,18 +43,18 @@
               </div>
             </div>
 
-            <div class="col-6 col-md-4 order-3 order-md-3 text-right">
+            <div class="col-12 col-md-12 order-3 order-md-3 text-right">
               <div class="site-top-icons">
                 <ul>
-                  <li><a href="#"><span class="icon icon-person"></span></a></li>
-                  <li><a href="#"><span class="icon icon-heart-o"></span></a></li>
+                  <li><a href="{% url 'customerLoginPage' %}"><span class="icon icon-person">Login</span></a></li>
+                  <li><a href="{% url 'logout' %}"><span class="icon icon-heart-o">logout</span></a></li>
                   <li>
-                    <a href="cart.html" class="site-cart">
-                      <span class="icon icon-shopping_cart"></span>
-                      <span class="count">2</span>
+                    <a href="{% url 'cartPage' %}"  class="site-cart">
+                      <span class="icon icon-shopping_cart">Cart</span>
+                      <span class="count">{{totalCart}}</span>
                     </a>
                   </li> 
-                  <li class="d-inline-block d-md-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle"><span class="icon-menu"></span></a></li>
+                  
                 </ul>
               </div> 
             </div>
@@ -137,8 +137,11 @@
                       <h3><a href="#">{{product.name}}</a></h3>
                       <p class="mb-0">{{product.details}}</p>
                       <p class="text-primary font-weight-bold">{{product.selling_price}} Taka</p>
-                      <div class="col-md-12"><button class="btn btn-primary">Add to Cart</button></div>
-                      
+                      {% if request.user.is_authenticated %}
+                        <div class="col-md-12"><a href="{% url 'addToCart' product.id %}" class="btn btn-primary addToCart">Add to Cart</a></div>
+                      {% else %}
+                        <div class="col-md-12"><a href="{% url 'registration'  %}" class="btn btn-primary addToCart">Add to Cart</a></div>
+                      {% endif %}
                     </div>
                   </div>
                 </div>
@@ -183,6 +186,111 @@
     </footer>
   </div>
 
+
+
+  <div class="modal fade" id="cartModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Add Item</h3>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+
+                <div class="modal-body">
+                    <form  method="post" action="{% url 'addProduct' %}" enctype='multipart/form-data'>
+                    {% csrf_token %}
+                      <div class="form-sample">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Name</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="name" required="required"
+                                                class="form-control " placeholder="Name"/>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Details</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="details" required="required"
+                                                class="form-control " placeholder="Details"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Catagory</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="catagory" required="required"
+                                                class="form-control " placeholder="Catagory"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Buying Price</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" step="any" name="buying_price" required="required"
+                                                class="form-control " placeholder="Buying Price"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Selling Price</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" step="any" name="selling_price" required="required"
+                                                class="form-control " placeholder="Selling Price"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Image</label>
+                                    <div class="col-sm-9">
+                                        <input type="file"  name="image" 
+                                                class="form-control" placeholder="Image"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button type="submit" class="btn btn-success col-md-4">Submit</button>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
   <script src="{% static 'ecommerceSite/js/jquery-3.3.1.min.js'%}"></script>
   <script src="{% static 'ecommerceSite/js/jquery-ui.js'%}"></script>
   <script src="{% static 'ecommerceSite/js/popper.min.js'%}"></script>
@@ -192,6 +300,36 @@
   <script src="{% static 'ecommerceSite/js/aos.js'%}"></script>
 
   <script src="{% static 'ecommerceSite/js/main.js'%}"></script>
-    
+  {% comment %} <script>
+    var count = 0;
+    var allProduct = [];
+    $('.addToCart').click(function(){
+      console.log('added to cart!');
+      getThisProduct = this.id;
+      if (allProduct.includes(getThisProduct)){
+        console.log('already exists!')
+      }
+      else{
+        allProduct.push(getThisProduct);
+        console.log(getThisProduct);
+        count += 1;
+        console.log(count);
+        $('.count').text(count);
+      }
+      
+    });
+  </script> {% endcomment %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  
+    <script>
+        $( document ).ready(function() {
+            {% if messages %}
+                {% for message in messages %}
+                    toastr.{{ message.tags }}('{{ message }}');
+                {% endfor %}
+            {% endif %}
+
+        });
+    </script> 
   </body>
 </html>

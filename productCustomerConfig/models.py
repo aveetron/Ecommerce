@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 
@@ -40,3 +40,21 @@ class Stock(models.Model):
     
 
 
+
+class Cart(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    status = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+
+
+
+class OrderDetail(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    qty = models.IntegerField()
+    total = models.DecimalField(max_digits=7, decimal_places=2)
+    customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    status = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+    delivered = models.BooleanField(default=False)
+    

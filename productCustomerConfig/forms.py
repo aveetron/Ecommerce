@@ -1,6 +1,5 @@
 from django import forms
-from .models import Product, Stock
-
+from .models import Product, Stock, Cart, OrderDetail
 
 class ProductForms(forms.ModelForm):
     class Meta:
@@ -13,3 +12,10 @@ class StockForms(forms.ModelForm):
     class Meta:
         model = Stock
         fields = ['product', 'total_qty']
+
+
+
+class OrderDetailForms(forms.ModelForm):
+    class Meta:
+        model = OrderDetail
+        fields = '__all__'
