@@ -22,9 +22,10 @@ Coded by www.creative-tim.com
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Smart Ecommerce Dashboard 
+    Smart Ecommerce Dashboard
   </title>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+    name='viewport' />
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
@@ -33,12 +34,12 @@ Coded by www.creative-tim.com
   <link href="{% static 'css/paper-dashboard.css' %}" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="{% static 'demo/demo.css'%}" rel="stylesheet" />
-  <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet"/>
+  <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
   <style>
-    .box{
+    .box {
       height: 100px;
-      width : 100px;
+      width: 100px;
     }
   </style>
 </head>
@@ -47,71 +48,18 @@ Coded by www.creative-tim.com
   <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
       <div class="logo">
-        <a href="https://www.creative-tim.com" class="simple-text logo-mini">
-          <div class="logo-image-small">
-            <img src="../assets/img/logo-small.png">
-          </div>
+        <a href="" class="simple-text logo-mini">
+
           <!-- <p>CT</p> -->
         </a>
-        <a href="https://www.creative-tim.com" class="simple-text logo-normal">
+        <a href="{% url 'home'%}" class="simple-text logo-normal">
           Smart Ecommerce
           <!-- <div class="logo-image-big">
             <img src="../assets/img/logo-big.png">
           </div> -->
         </a>
       </div>
-      <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li class="active ">
-            <a href="./dashboard.html">
-              <i class="nc-icon nc-bank"></i>
-              <p>Dashboard</p>
-            </a>
-          </li>
-          <li>
-            <a href="./icons.html">
-              <i class="nc-icon nc-diamond"></i>
-              <p>Icons</p>
-            </a>
-          </li>
-          <li>
-            <a href="./map.html">
-              <i class="nc-icon nc-pin-3"></i>
-              <p>Maps</p>
-            </a>
-          </li>
-          <li>
-            <a href="./notifications.html">
-              <i class="nc-icon nc-bell-55"></i>
-              <p>Notifications</p>
-            </a>
-          </li>
-          <li>
-            <a href="./user.html">
-              <i class="nc-icon nc-single-02"></i>
-              <p>User Profile</p>
-            </a>
-          </li>
-          <li>
-            <a href="./tables.html">
-              <i class="nc-icon nc-tile-56"></i>
-              <p>Table List</p>
-            </a>
-          </li>
-          <li>
-            <a href="./typography.html">
-              <i class="nc-icon nc-caps-small"></i>
-              <p>Typography</p>
-            </a>
-          </li>
-          <li class="active-pro">
-            <a href="./upgrade.html">
-              <i class="nc-icon nc-spaceship"></i>
-              <p>Upgrade to PRO</p>
-            </a>
-          </li>
-        </ul>
-      </div>
+
     </div>
     <div class="main-panel">
       <!-- Navbar -->
@@ -127,7 +75,8 @@ Coded by www.creative-tim.com
             </div>
             <a class="navbar-brand" href="javascript:;">Admin Ecommerce</a>
           </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
+            aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
             <span class="navbar-toggler-bar navbar-kebab"></span>
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -153,7 +102,8 @@ Coded by www.creative-tim.com
                 </a>
               </li>
               <li class="nav-item btn-rotate dropdown">
-                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="nc-icon nc-bell-55"></i>
                   <p>
                     <span class="d-lg-none d-md-block">Some Actions</span>
@@ -167,7 +117,7 @@ Coded by www.creative-tim.com
               </li>
               <li class="nav-item">
                 <a class="nav-link btn-rotate" href="{% url 'logout'%}">
-                  <i class="nc-icon nc-settings-gear-65" ></i>
+                  <i class="nc-icon nc-settings-gear-65"></i>
                   <p>
                     <span class="d-lg-none d-md-block">Account</span>
                   </p>
@@ -218,7 +168,7 @@ Coded by www.creative-tim.com
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <p class="card-category">Revenue</p>
-                      <p class="card-title">$ 1,345<p>
+                      <p class="card-title">$ {{totalRevenue}}<p>
                     </div>
                   </div>
                 </div>
@@ -243,8 +193,8 @@ Coded by www.creative-tim.com
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Errors</p>
-                      <p class="card-title">23<p>
+                      <p class="card-category">Total Order</p>
+                      <p class="card-title">{{totalOrder}}<p>
                     </div>
                   </div>
                 </div>
@@ -269,8 +219,8 @@ Coded by www.creative-tim.com
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Followers</p>
-                      <p class="card-title">+45K<p>
+                      <p class="card-category">Ordder Pending</p>
+                      <p class="card-title">{{orderPending}}<p>
                     </div>
                   </div>
                 </div>
@@ -296,32 +246,32 @@ Coded by www.creative-tim.com
                 <table id="example" class="display" style="width:100%">
                   <thead>
                     <tr>
-                        <th>No</th>
-                        <th>Image</th>
-                        <th>Name</th>
-                        <th>Details</th>
-                        <th>Buying price</th>
-                        <th>Selling Price</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
+                      <th>No</th>
+                      <th>Image</th>
+                      <th>Name</th>
+                      <th>Details</th>
+                      <th>Buying price</th>
+                      <th>Selling Price</th>
+                      <th>Edit</th>
+                      <th>Delete</th>
                     </tr>
                   </thead>
                   <tbody>
-                  {% for product in allProduct %}
+                    {% for product in allProduct %}
                     <tr>
-                        <td>{{forloop.counter}}</td>
-                        
-                        <td><img class="box" src="{{ product.image.url }}"></td>
-                        <td>{{product.name}}</td>
-                        <td>{{product.details}}</td>
-                        <td>{{product.buying_price}}</td>
-                        <td>{{product.selling_price}}</td>
-                        <td><button class="btn btn-primary">Edit</button></td>
-                        <td><button class="btn btn-darger">Delete</button></td>
+                      <td>{{forloop.counter}}</td>
+
+                      <td><img class="box" src="{{ product.image.url }}"></td>
+                      <td>{{product.name}}</td>
+                      <td>{{product.details}}</td>
+                      <td>{{product.buying_price}}</td>
+                      <td>{{product.selling_price}}</td>
+                      <td><button class="btn btn-primary">Edit</button></td>
+                      <td><a href="{% url 'deleteProduct' product.id %}" class="btn btn-darger">Delete</a></td>
                     </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
+                    {% endfor %}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -331,252 +281,257 @@ Coded by www.creative-tim.com
             <div class="card ">
               <div class="card-header ">
                 <button class="btn btn-primary" data-target="#stockModal" data-toggle="modal">Add Item</button>
-                <h5 class="card-title">Item Details</h5>
+                <h5 class="card-title">Stock Details</h5>
               </div>
               <div class="card-body ">
                 <table id="exampleStock" class="display" style="width:100%">
                   <thead>
                     <tr>
-                        <th>No</th>
-                        <th>Product</th>
-                        <th>Total Qty</th>
-                        <th>Remain Qty</th>
-                        <th>Available</th>
-                        <th>Created by</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
+                      <th>No</th>
+                      <th>Product</th>
+                      <th>Total Qty</th>
+                      <th>Remain Qty</th>
+                      <th>Available</th>
+                      <th>Created by</th>
+                      <th>Edit</th>
+                      <th>Delete</th>
                     </tr>
                   </thead>
                   <tbody>
-                  {% for stock in totalStock %}
+                    {% for stock in totalStock %}
                     <tr>
-                        <td>{{forloop.counter}}</td>
-                        
-                        <td>{{stock.product.name}}</td>
-                        <td>{{stock.total_qty}}</td>
-                        <td>{{stock.remain_qty}}</td>
-                        <td>{{stock.status}}</td>
-                        <td>{{stock.created_by}}</td>
-                        <td><button class="btn btn-primary">Edit</button></td>
-                        <td><button class="btn btn-darger">Delete</button></td>
+                      <td>{{forloop.counter}}</td>
+
+                      <td>{{stock.product.name}}</td>
+                      <td>{{stock.total_qty}}</td>
+                      <td>{{stock.remain_qty}}</td>
+                      <td>{{stock.status}}</td>
+                      <td>{{stock.created_by}}</td>
+                      <td><button class="btn btn-primary">Edit</button></td>
+                      <td><a href="{% url 'deleteStock' stock.id %}" class="btn btn-darger">Delete</button></td>
                     </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
+                    {% endfor %}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
         </div>
+
         <div class="row">
           <div class="col-md-12">
             <div class="card ">
               <div class="card-header ">
-                <button class="btn btn-primary" data-target="#stockModal" data-toggle="modal">Add Item</button>
-                <h5 class="card-title">Item Details</h5>
+
+                <h5 class="card-title">Order Details</h5>
               </div>
               <div class="card-body ">
-                <table id="exampleStock" class="display" style="width:100%">
+                <table id="exampleOrder" class="display" style="width:100%">
                   <thead>
                     <tr>
-                        <th>No</th>
-                        <th>Product</th>
-                        <th>Total Qty</th>
-                        <th>Remain Qty</th>
-                        <th>Available</th>
-                        <th>Created by</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
+                      <th>No</th>
+                      <th>Product Details</th>
+                      <th>Customer</th>
+                      <th>Customer Address</th>
+                      <th>Customer Phone</th>
+                      <th>Total</th>
+                      <th>Status</th>
+                      <th>Created</th>
+                      <th>Delivered</th>
+                      <th>Delivered</th>
+                      <th>Delete</th>
                     </tr>
                   </thead>
                   <tbody>
-                  {% for stock in totalStock %}
+                    {% for order in orderDetails %}
                     <tr>
-                        <td>{{forloop.counter}}</td>
-                        
-                        <td>{{stock.product.name}}</td>
-                        <td>{{stock.total_qty}}</td>
-                        <td>{{stock.remain_qty}}</td>
-                        <td>{{stock.status}}</td>
-                        <td>{{stock.created_by}}</td>
-                        <td><button class="btn btn-primary">Edit</button></td>
-                        <td><button class="btn btn-darger">Delete</button></td>
+                      <td>{{forloop.counter}}</td>
+                      <td>{{order.product}}</td>
+                      <td>{{order.customer.username}}</td>
+                      <td>{{order.address}}</td>
+                      <td>{{order.phone}}</td>
+                      <td>{{order.total}}</td>
+                      <td>{{order.status}}</td>
+                      <td>{{order.created}}</td>
+                      <td>{{order.delivered}}</td>
+                      <td><a href="{% url 'delivered' order.id %}" class="btn btn-primary">Deliver</a></td>
+                      <td><a href="{% url 'deleteOrder' order.id %}" class="btn btn-darger">Delete</a></td>
                     </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
+                    {% endfor %}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
         </div>
       </div>
-      
+
     </div>
   </div>
   <!-- modal field -->
 
   <div class="modal fade " id="productModal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>Add Item</h3>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title"></h4>
-                </div>
-
-                <div class="modal-body">
-                    <form  method="post" action="{% url 'addProduct' %}" enctype='multipart/form-data'>
-                    {% csrf_token %}
-                      <div class="form-sample">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Name</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" name="name" required="required"
-                                                class="form-control " placeholder="Name"/>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Details</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" name="details" required="required"
-                                                class="form-control " placeholder="Details"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Catagory</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" name="catagory" required="required"
-                                                class="form-control " placeholder="Catagory"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Buying Price</label>
-                                    <div class="col-sm-9">
-                                        <input type="number" step="any" name="buying_price" required="required"
-                                                class="form-control " placeholder="Buying Price"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Selling Price</label>
-                                    <div class="col-sm-9">
-                                        <input type="number" step="any" name="selling_price" required="required"
-                                                class="form-control " placeholder="Selling Price"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Image</label>
-                                    <div class="col-sm-9">
-                                        <input type="file"  name="image" 
-                                                class="form-control" placeholder="Image"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <div class="col-sm-6">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <button type="submit" class="btn btn-success col-md-4">Submit</button>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </form>
-                </div>
-                <div class="modal-footer">
-                </div>
-            </div>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Add Item</h3>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"></h4>
         </div>
+
+        <div class="modal-body">
+          <form method="post" action="{% url 'addProduct' %}" enctype='multipart/form-data'>
+            {% csrf_token %}
+            <div class="form-sample">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Name</label>
+                    <div class="col-sm-9">
+                      <input type="text" name="name" required="required" class="form-control " placeholder="Name" />
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Details</label>
+                    <div class="col-sm-9">
+                      <input type="text" name="details" required="required" class="form-control "
+                        placeholder="Details" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Catagory</label>
+                    <div class="col-sm-9">
+                      <input type="text" name="catagory" required="required" class="form-control "
+                        placeholder="Catagory" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Buying Price</label>
+                    <div class="col-sm-9">
+                      <input type="number" step="any" name="buying_price" required="required" class="form-control "
+                        placeholder="Buying Price" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Selling Price</label>
+                    <div class="col-sm-9">
+                      <input type="number" step="any" name="selling_price" required="required" class="form-control "
+                        placeholder="Selling Price" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Image</label>
+                    <div class="col-sm-9">
+                      <input type="file" name="image" class="form-control" placeholder="Image" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group row">
+                    <div class="col-sm-6">
+                    </div>
+                    <div class="col-sm-6">
+                      <button type="submit" class="btn btn-success col-md-4">Submit</button>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
     </div>
+  </div>
   </div>
 
   <div class="modal fade " id="stockModal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>Add Stock</h3>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title"></h4>
-                </div>
-
-                <div class="modal-body">
-                    <form  method="post" action="{% url 'addStock' %}" >
-                    {% csrf_token %}
-                      <div class="form-sample">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Product</label>
-                                    <div class="col-sm-9">
-                                        <select name="product" class="form-control">
-                                          {% for product in allProduct %}
-                                            <option value="{{product.id}}">{{product.name}}</option>
-                                          {% endfor %}
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Total Quantity</label>
-                                    <div class="col-sm-9">
-                                        <input type="number"  name="total_qty" required="required"
-                                                class="form-control " placeholder="Buying Price"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <div class="col-sm-6">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <button type="submit" class="btn btn-success col-md-4">Submit</button>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </form>
-                </div>
-                <div class="modal-footer">
-                </div>
-            </div>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Add Stock</h3>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"></h4>
         </div>
+
+        <div class="modal-body">
+          <form method="post" action="{% url 'addStock' %}">
+            {% csrf_token %}
+            <div class="form-sample">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Product</label>
+                    <div class="col-sm-9">
+                      <select name="product" class="form-control">
+                        <option val="">Select Product</option>
+                        {% for product in allProduct %}
+                        <option value="{{product.id}}">{{product.name}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Total Quantity</label>
+                    <div class="col-sm-9">
+                      <input type="number" name="total_qty" required="required" class="form-control "
+                        placeholder="Buying Price" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group row">
+                    <div class="col-sm-6">
+                    </div>
+                    <div class="col-sm-6">
+                      <button type="submit" class="btn btn-success col-md-4">Submit</button>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
     </div>
+  </div>
   </div>
   <!--   Core JS Files   -->
   <script src="{% static 'js/core/jquery.min.js'%}"></script>
@@ -590,37 +545,42 @@ Coded by www.creative-tim.com
   <!--  Notifications Plugin    -->
   <script src="{% static 'js/plugins/bootstrap-notify.js'%}"></script>
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="{% static 'js/paper-dashboard.min.js'%}" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+  <script src="{% static 'js/paper-dashboard.min.js'%}" type="text/javascript"></script>
+  <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="{% static 'demo/demo.js'%}"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
   <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
       // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
       demo.initChartsPages();
     });
 
-    $(document).ready(function() {
+    $(document).ready(function () {
       $('#example').DataTable();
-    } );
-    
-        $(document).ready(function() {
+    });
+
+    $(document).ready(function () {
       $('#exampleStock').DataTable();
-    } );
+    });
+
+    $(document).ready(function () {
+      $('#exampleOrder').DataTable();
+    });
   </script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-  
-    <script>
-        $( document ).ready(function() {
-            {% if messages %}
-                {% for message in messages %}
-                    toastr.{{ message.tags }}('{{ message }}');
-                {% endfor %}
-            {% endif %}
 
-        });
-    </script> 
+  <script>
+    $(document).ready(function () {
+      {% if messages %}
+      {% for message in messages %}
+      toastr.{ { message.tags } } ('{{ message }}');
+      {% endfor %}
+      {% endif %}
+
+    });
+  </script>
 </body>
 
 </html>

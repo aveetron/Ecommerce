@@ -10,7 +10,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib import auth
 from django.contrib import messages
 from django.db.models import Sum
-from productCustomerConfig.models import Product,Stock
+from productCustomerConfig.models import Product,Stock, OrderDetail
 
 
 # Create your views here.
@@ -87,15 +87,26 @@ def loginCheck(request):
         return redirect("login")
 
 
+from django.db.models import Sum
+
+
 @login_required(login_url="loginPage")
 def home(request):
     allProduct = Product.objects.all().order_by('-pk')
     totalStock = Stock.objects.all().order_by('-pk')
     totalProduct = Product.objects.count()
+    orderDetails = OrderDetail.objects.all().order_by('-pk')
+    totalOrder = OrderDetail.objects.all().count()
+    orderPending = OrderDetail.objects.filter(delivered = False).count()
+    totalRevenue = OrderDetail.objects.filter(delivered=True).aggregate(Sum('total'))['total__sum']
     context = {
         'allProduct': allProduct,
         'totalStock': totalStock,
-        'totalProduct': totalProduct
+        'totalProduct': totalProduct,
+        'orderDetails': orderDetails,
+        'totalOrder': totalOrder,
+        'orderPending': orderPending,
+        'totalRevenue': totalRevenue
     }   
     return render(request, "home.html", context)
 
