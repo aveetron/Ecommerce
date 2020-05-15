@@ -1,4 +1,4 @@
-from django.shortcuts import render,HttpResponseRedirect,HttpResponse
+from django.shortcuts import render,HttpResponseRedirect,HttpResponse,redirect
 from productCustomerConfig.models import Product,Cart,OrderDetail
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -19,46 +19,101 @@ def ecommerce(request):
 
 
 def addToCart(request, id):
-    cart = Cart(
-        product = Product.objects.get(id =id),
-        customer = User.objects.get(id = request.user.id),
-        status = True
-    )
-    cart.save()
-    message = 'Product added to cart'
-    messages.success(request, message)
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    if Cart.objects.filter(product = Product.objects.get(id =id), customer= request.user.id).exists():
+        message = 'already added to cart'
+        messages.info(request, message)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    else:
+        cart = Cart(
+            product = Product.objects.get(id =id),
+            customer = User.objects.get(id = request.user.id),
+            status = True
+        )
+        cart.save()
+        message = 'Product added to cart'
+        messages.success(request, message)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 def cartPage(request):
     totalCart = Cart.objects.filter(customer = request.user.id).count()
     allCart = Cart.objects.filter(customer = request.user.id)
+
     context = {
         'totalCart': totalCart,
         'allCart': allCart
     }
     return render(request, 'shoppers/cart.html', context)
 
-def OrderDetailSave(request, id):
+
+def cartDetailSave(request, id):
     cart = Cart.objects.get(id = id)
-    if request.method == "POST":
-        request.POST = request.POST.copy()
-        form = OrderDetailForms(request.POST)
-        if form.is_valid():
-            orderInstance = form.save(commit=False)
-            orderInstance.product = Product.objects.get(id = cart.product.id)
-            orderInstance.customer = User.objects.get(id = request.user.id)
-            orderInstance.total = 
-            orderInstance.status = True
-            orderInstance.save()
-            message = 'Order Saved'
-            messages.success(request, message)
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-        else:
-            message = 'Order problem'
-            messages.info(request, message)
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    cart.qty = request.POST.get('qty')
+    print(cart.qty)
+    if cart.qty == 1:
+        cart.total = float(cart.product.selling_price) * 1
     else:
-        message = 'Order problem'
-        messages.info(request, message)
+        cart.total = float(cart.product.selling_price) * float(cart.qty)
+    cart.status = True
+    cart.save()
+    message = 'Product added on Order list'
+    messages.success(request, message)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+
+def deleteCart(request, id):
+    cart = Cart.objects.get(id =id)
+    cart.delete()
+    message = 'Product deleted successfully'
+    messages.success(request, message)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+def checkOutPage(request):
+    allCart = Cart.objects.filter(customer = request.user.id)
+    total = 0
+    for cart in Cart.objects.filter(customer = request.user.id):
+        total += (cart.qty * cart.product.selling_price)
+
+    shippingCost = 20
+    total = total + shippingCost
+    context = {
+        'allCart': allCart,
+        'total': total
+    }
+    return render(request, 'shoppers/checkout.html', context)
+
+
+
+
+def orderSubmit(request):
+    if request.method == 'POST':
+        total = 0
+        productDetails = ''
+        for cart in Cart.objects.filter(customer = request.user.id):
+            total += (cart.qty * cart.product.selling_price)
+            productDetails = productDetails + str(cart.product.name) + str(cart.qty)
+        
+        product = productDetails
+        customer = User.objects.get(id = request.user.id)
+        address = request.POST.get('address')
+        phone = request.POST.get('phone')
+        total  = total + 20
+        status = True
+        order = OrderDetail(
+            product = product,
+            customer = customer,
+            address = address,
+            phone = phone,
+            total = total,
+            status = status,
+        )
+        order.save()
+        message =  'order submitted'
+        messages.success(request, message)
+        return redirect('ecommerce')
+    else:
+        message =  'order submit problem'
+        messages.success(request, message)
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+

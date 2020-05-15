@@ -46,8 +46,14 @@
             <div class="col-12 col-md-12 order-3 order-md-3 text-right">
               <div class="site-top-icons">
                 <ul>
-                  <li><a href="{% url 'customerLoginPage' %}"><span class="icon icon-person">Login</span></a></li>
-                  <li><a href="{% url 'logout' %}"><span class="icon icon-heart-o">logout</span></a></li>
+                  {% if request.user.is_authenticated %}  
+										<li><a href="{% url 'logout' %}"><span class="icon icon-heart-o">logout</span></a>
+										</li>
+									{% else %}
+										<li><a href="{% url 'customerLoginPage' %}"><span
+											class="icon icon-person">Login</span></a></li>
+									{% endif %}
+									
                   <li>
                     <a href="{% url 'cartPage' %}"  class="site-cart">
                       <span class="icon icon-shopping_cart">Cart</span>

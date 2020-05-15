@@ -44,17 +44,19 @@ class Stock(models.Model):
 class Cart(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    qty = models.IntegerField(default=1)
+    total = models.DecimalField(default=0,max_digits=7, decimal_places=2)
     status = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
 
 
 
 class OrderDetail(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    qty = models.IntegerField()
-    total = models.DecimalField(max_digits=7, decimal_places=2)
+    product = models.CharField( max_length=300)
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    address = models.CharField(null=True,blank=True,max_length=100)
+    phone = models.CharField(null=True,blank=True,max_length=20)
+    total = models.DecimalField(max_digits=7, decimal_places=2)
     status = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     delivered = models.BooleanField(default=False)
-    
